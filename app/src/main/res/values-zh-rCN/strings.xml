@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">EasyAlbum</string>
+    <string name="limit">数量:</string>
+    <string name="limit_hint">9</string>
+    <string name="multi_choice">多选</string>
+    <string name="single_choice">单选</string>
+    <string name="select_option">筛选条件:</string>
+    <string name="all">全选</string>
+    <string name="video">视频</string>
+    <string name="image">图片</string>
+    <string name="clear_selected">清除已选中</string>
+    <string name="all_medias">图片和视频</string>
+    <string name="all_videos">所有视频</string>
+    <string name="all_images">所有图片</string>
+    <string name="storage_permission_request">此操作需要授权访问存储的权限</string>
+    <string name="to_system_setting">前往系统设置</string>
+    <string name="select_pictures_and_videos_limit">最多只能选择%1$d个图片或者视频</string>
+</resources>

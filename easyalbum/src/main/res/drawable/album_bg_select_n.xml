@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape>
+            <corners android:radius="25dp" />
+            <stroke
+                android:width="1.2dp"
+                android:color="@color/album_white" />
+
+        </shape>
+    </item>
+
+    <item
+        android:bottom="1.2dp"
+        android:left="1.2dp"
+        android:right="1.2dp"
+        android:top="1.2dp">
+        <shape>
+            <corners android:radius="25dp" />
+            <solid android:color="@color/album_select_n_bg" />
+        </shape>
+    </item>
+</layer-list>

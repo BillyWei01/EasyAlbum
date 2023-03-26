@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="album_preview">Preview</string>
+    <string name="album_all">All</string>
+    <string name="album_done">Done</string>
+    <string name="album_selected_over_limit">Selected over limit</string>
+    <string name="album_original">Original</string>
+    <string name="album_select">Select</string>
+</resources>

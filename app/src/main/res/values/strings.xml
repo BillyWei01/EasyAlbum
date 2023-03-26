@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">EasyAlbum</string>
+    <string name="limit">Limit:</string>
+    <string name="limit_hint">9</string>
+    <string name="multi_choice">Multi choice</string>
+    <string name="single_choice">Single choice</string>
+    <string name="select_option">Select option:</string>
+    <string name="all">All</string>
+    <string name="video">Video</string>
+    <string name="image">Image</string>
+    <string name="clear_selected">Clear selected</string>
+    <string name="all_medias">All</string>
+    <string name="all_videos">All Videos</string>
+    <string name="all_images">All Images</string>
+    <string name="storage_permission_request">The operation needs the storage access permission</string>
+    <string name="to_system_setting">Go to system settings</string>
+    <string name="select_pictures_and_videos_limit">You can choose %1$d pictures or videos at most</string>
+</resources>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="album_primary">#333333</color>
+
+    <color name="album_black">#000000</color>
+    <color name="album_white">#ffffff</color>
+    <color name="album_white_cc">#ccffffff</color>
+    <color name="album_dark_transparent">#cc000000</color>
+    <color name="album_gray_e8">#e8e8e8</color>
+    <color name="album_gray_28">#282828</color>
+
+    <color name="album_text_color">#ffffff</color>
+    <color name="album_text_color_gray">#696969</color>
+    <color name="album_text_color_disable">#80ffffff</color>
+
+    <color name="album_selected">#04c15f</color>
+    <color name="album_bg_btn_enable">#04c15f</color>
+    <color name="album_bg_btn_disable">#434343</color>
+
+    <color name="album_bg_folder">#4c4c4c</color>
+
+    <color name="album_select_n_bg">#33000000</color>
+
+    <color name="album_item_mask">#80000000</color>
+
+    <color name="album_folder_mask">#bf000000</color>
+
+    <color name="album_divider_color">#4c4c4c</color>
+
+</resources>

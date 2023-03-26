@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/option_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_option"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/option_group"
+        app:layout_constraintStart_toStartOf="@id/multi_choice_btn"
+        app:layout_constraintTop_toTopOf="@id/option_group" />
+
+    <RadioGroup
+        android:id="@+id/option_group"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/option_tv"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <RadioButton
+            android:id="@+id/radio_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/all"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radio_video"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/video"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radio_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/image"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+
+    <Button
+        android:id="@+id/multi_choice_btn"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/multi_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/option_group" />
+
+    <TextView
+        android:id="@+id/limit_title_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:text="@string/limit"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/multi_choice_btn"
+        app:layout_constraintStart_toEndOf="@id/multi_choice_btn"
+        app:layout_constraintTop_toTopOf="@id/multi_choice_btn" />
+
+    <EditText
+        android:id="@+id/limit_title_et"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:autofillHints="true"
+        android:gravity="end"
+        android:hint="@string/limit_hint"
+        android:inputType="number"
+        android:padding="5dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/multi_choice_btn"
+        app:layout_constraintStart_toEndOf="@id/limit_title_tv"
+        app:layout_constraintTop_toTopOf="@id/multi_choice_btn" />
+
+    <Button
+        android:id="@+id/single_choice_btn"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/single_choice"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/multi_choice_btn" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#333333"
+        app:layout_constraintBottom_toTopOf="@id/clear_selected_btn"
+        app:layout_constraintTop_toBottomOf="@id/single_choice_btn" />
+
+    <Button
+        android:id="@+id/clear_selected_btn"
+        android:layout_width="140dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/clear_selected"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/single_choice_btn" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginTop="5dp"
+        android:background="#333333"
+        app:layout_constraintTop_toBottomOf="@id/clear_selected_btn" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/select_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="3dp"
+        android:layout_marginTop="10dp"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/divider" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="album_done">完成</string>
+    <string name="album_preview">预览</string>
+    <string name="album_all">图片和视频</string>
+    <string name="album_selected_over_limit">不能超过选择限制</string>
+    <string name="album_original">原图</string>
+    <string name="album_select">选择</string>
+</resources>
