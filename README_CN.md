@@ -56,7 +56,8 @@ EasyAlbum启动相册页面以from起头，以start结束。
 
 ## 三、相关链接
 
-https://www.jianshu.com/p/311c3e54f530
+https://juejin.cn/post/7215163152907092024
+
 
 ## License
 See the [LICENSE](LICENSE) file for license rights and limitations.
