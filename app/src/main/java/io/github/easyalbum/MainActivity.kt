@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
             .setSelectedList(mediaAdapter?.getData())
             .setAllString(option.text)
             .enableOriginal()
-            .setFolderComparator(priorityFolderComparator)
+            //.setFolderComparator(priorityFolderComparator)
             .start { result ->
                 mediaAdapter?.setData(result.selectedList)
             }

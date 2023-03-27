@@ -16,14 +16,20 @@ EasyAlbum的特性包括单不限于以下列表：
 - 内部实现缓存，再次进入相册秒开；
 - 支持预加载，提升首次打开的显示速度。
 
+![](images/easy_album_cn.jpg)
 
 ## 二. 使用方法
 
-### 2.1 全局配置
+### 2.1 下载
+```gradle
+implementation 'io.github.billywei01:easyalbum:1.0.5'
+```
+
+### 2.2 全局配置
 
 ```kotlin
 EasyAlbum.config()
-    .setImageLoader(AlbumGlideImageLoader)
+    .setImageLoader(GlideImageLoader)
     .setDefaultFolderComparator { o1, o2 -> o1.name.compareTo(o2.name)}
     .setItemAnimator(DefaultItemAnimator())
 ```
@@ -31,7 +37,7 @@ EasyAlbum.config()
 除了ImageLoader必须设置之外，其他的配置都是可选项。
 
 
-### 2.2 启动相册
+### 2.3 启动相册
 
 ```kotlin
 EasyAlbum.from(this)
@@ -50,6 +56,4 @@ EasyAlbum启动相册页面以from起头，以start结束。
 
 ## License
 See the [LICENSE](LICENSE) file for license rights and limitations.
-
-
 

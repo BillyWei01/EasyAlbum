@@ -17,22 +17,28 @@ EasyAlbum is a easy to use media image and video selector for Android.
 - Support preload to speed up the first time of opening album.
 
 
+
+![](images/easy_album_en.jpg)
+
 ## 2. Getting start
+### 2.1 Download
 
-### 2.1 Global Config
+```gradle
+implementation 'io.github.billywei01:easyalbum:1.0.5'
+```
 
+### 2.2 Global Config
 
 ```kotlin
 EasyAlbum.config()
-    .setImageLoader(AlbumGlideImageLoader)
+    .setImageLoader(GlideImageLoader)
     .setDefaultFolderComparator { o1, o2 -> o1.name.compareTo(o2.name)}
     .setItemAnimator(DefaultItemAnimator())
 ```
 
 Except for ImageLoader, which must be set, other configurations are optional.
 
-
-### 2.2 Start Album
+### 2.3 Start Album
 
 ```kotlin
 EasyAlbum.from(this)
@@ -49,8 +55,5 @@ EasyAlbum.from(this)
 
 EasyAlbum starts the album with "from" and ends with "start".
 
-
 ## License
 See the [LICENSE](LICENSE) file for license rights and limitations.
-
-

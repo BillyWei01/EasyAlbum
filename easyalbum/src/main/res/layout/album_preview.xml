@@ -52,90 +52,96 @@
 
     </FrameLayout>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/album_preview_selected_rv"
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_gravity="bottom"
-        android:layout_marginBottom="@dimen/album_bottom_height"
-        android:background="@color/album_dark_transparent" />
-
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/album_preview_bottom"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/album_bottom_height"
-        android:layout_gravity="bottom"
-        android:background="@color/album_gray_28">
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="bottom">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/album_preview_original"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_horizontal">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/album_preview_selected_rv"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:background="@color/album_dark_transparent" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/album_preview_original_iv"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@drawable/album_bg_original_n"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/album_preview_original_tv"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:ignore="ContentDescription" />
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/album_bottom_height"
+            android:layout_gravity="bottom"
+            android:background="@color/album_gray_28">
 
-            <TextView
-                android:id="@+id/album_preview_original_tv"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/album_preview_original"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="@string/album_original"
-                android:textColor="@color/album_text_color"
-                android:textSize="@dimen/album_common_text_size"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/album_preview_original_iv"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center_horizontal">
 
-            <TextView
-                android:id="@+id/album_preview_total_tv"
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/album_preview_original_iv"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@drawable/album_bg_original_n"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/album_preview_original_tv"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="ContentDescription" />
+
+                <TextView
+                    android:id="@+id/album_preview_original_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:text="@string/album_original"
+                    android:textColor="@color/album_text_color"
+                    android:textSize="@dimen/album_common_text_size"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/album_preview_original_iv"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/album_preview_total_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="1dp"
+                    android:textColor="@color/album_text_color_gray"
+                    android:textSize="10dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    tools:text="15M" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:id="@+id/album_preview_select"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:textColor="@color/album_text_color_gray"
-                android:textSize="10dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:visibility="gone"
-                tools:text="15M" />
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical|end"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:id="@+id/album_preview_select_iv"
+                    android:layout_width="17dp"
+                    android:layout_height="17dp"
+                    app:srcCompat="@drawable/album_preview_select_n"
+                    tools:ignore="ContentDescription" />
 
-        <LinearLayout
-            android:id="@+id/album_preview_select"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="center_vertical|end"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:text="@string/album_select"
+                    android:textColor="@color/album_text_color"
+                    android:textSize="@dimen/album_common_text_size" />
+            </LinearLayout>
+        </FrameLayout>
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/album_preview_select_iv"
-                android:layout_width="17dp"
-                android:layout_height="17dp"
-                app:srcCompat="@drawable/album_preview_select_n"
-                tools:ignore="ContentDescription" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/album_select"
-                android:textColor="@color/album_text_color"
-                android:textSize="@dimen/album_common_text_size" />
-        </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 
 </FrameLayout>

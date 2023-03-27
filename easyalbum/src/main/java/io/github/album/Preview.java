@@ -26,7 +26,7 @@ import io.github.album.ui.PreviewViewPager;
 final class Preview {
     private static final String TAG = "Preview";
 
-    private static final long ANIM_DURATION = 400L;
+    private static final long ANIM_DURATION = 250L;
 
     private static final int SELECTED_HORIZON_MARGIN = Utils.dp2px(5f);
     private static final int SELECTED_VERTICAL_MARGIN = Utils.dp2px(13.5f);
@@ -135,7 +135,7 @@ final class Preview {
         }
 
         void updateTitleTv() {
-            String text = "" + currentIndex + '/' + mediaList.size();
+            String text = "" + (currentIndex + 1) + '/' + mediaList.size();
             titleTv.setText(text);
         }
     }
@@ -192,7 +192,7 @@ final class Preview {
             if (currentIndex < mediaList.size()) {
                 MediaData mediaData = mediaList.get(currentIndex);
                 boolean hasSelected = !Session.result.selectedList.isEmpty();
-                if (Session.selectItem(mediaData)) {
+                if (Session.selectItem(mediaData) && Session.request.limit > 1) {
                     if (!hasSelected) {
                         holder.selectedRv.setVisibility(View.VISIBLE);
                     }
@@ -231,7 +231,7 @@ final class Preview {
             }
         });
         selectedRv.setAdapter(selectedAdapter);
-        if (Session.result.selectedList.isEmpty()) {
+        if (Session.result.selectedList.isEmpty() || Session.request.limit == 1) {
             selectedRv.setVisibility(View.GONE);
         } else {
             selectedRv.setVisibility(View.VISIBLE);
@@ -251,12 +251,13 @@ final class Preview {
 
     private void showTitle() {
         if (showTitleSet == null) {
+            int headerHeight = holder.previewHeader.getHeight();
+            int bottomHeight = holder.previewBottom.getHeight();
             showTitleSet = new AnimatorSet();
             showTitleSet.playTogether(
-                    ObjectAnimator.ofFloat(holder.previewHeader, View.TRANSLATION_Y, -holder.previewHeader.getHeight(), 0F),
-                    ObjectAnimator.ofFloat(holder.previewBottom, View.ALPHA, 0F, 1F),
-                    ObjectAnimator.ofFloat(holder.selectedRv, View.ALPHA, 0F, 1F),
-                    ObjectAnimator.ofFloat(holder.selectedRv, View.TRANSLATION_Y, 0F, 1F)
+                    ObjectAnimator.ofFloat(holder.previewHeader, View.TRANSLATION_Y, -headerHeight, 0F),
+                    ObjectAnimator.ofFloat(holder.previewBottom, View.TRANSLATION_Y, bottomHeight, 0F),
+                    ObjectAnimator.ofFloat(holder.selectedRv, View.ALPHA, 0F, 1F)
             );
             showTitleSet.setDuration(ANIM_DURATION).start();
         } else {
@@ -267,12 +268,13 @@ final class Preview {
 
     private void hideTitle() {
         if (hideTitleSet == null) {
+            int headerHeight = holder.previewHeader.getHeight();
+            int bottomHeight = holder.previewBottom.getHeight();
             hideTitleSet = new AnimatorSet();
             hideTitleSet.playTogether(
-                    ObjectAnimator.ofFloat(holder.previewHeader, View.TRANSLATION_Y, 0F, -holder.previewHeader.getHeight()),
-                    ObjectAnimator.ofFloat(holder.previewBottom, View.ALPHA, 1F, 0F),
-                    ObjectAnimator.ofFloat(holder.selectedRv, View.ALPHA, 1F, 0F),
-                    ObjectAnimator.ofFloat(holder.selectedRv, View.TRANSLATION_Y, 1F, 0F)
+                    ObjectAnimator.ofFloat(holder.previewHeader, View.TRANSLATION_Y, 0F, -headerHeight),
+                    ObjectAnimator.ofFloat(holder.previewBottom, View.TRANSLATION_Y, 0F, bottomHeight),
+                    ObjectAnimator.ofFloat(holder.selectedRv, View.ALPHA, 1F, 0F)
             );
             hideTitleSet.setDuration(ANIM_DURATION).start();
         } else {

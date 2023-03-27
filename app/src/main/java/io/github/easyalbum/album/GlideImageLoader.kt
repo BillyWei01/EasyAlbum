@@ -9,7 +9,7 @@ import io.github.album.MediaData
 import io.github.album.interfaces.ImageLoader
 import io.github.easyalbum.glide.UriToBitmapDecoder
 
-object AlbumGlideImageLoader : ImageLoader {
+object GlideImageLoader : ImageLoader {
     private const val DISK_CACHE_LIMIT = 300
 
     var count = 0

@@ -55,12 +55,11 @@
             android:textSize="16sp" />
     </RadioGroup>
 
-
     <Button
         android:id="@+id/multi_choice_btn"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:text="@string/multi_choice"
         app:layout_constraintStart_toStartOf="parent"
@@ -96,9 +95,9 @@
 
     <Button
         android:id="@+id/single_choice_btn"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:text="@string/single_choice"
         app:layout_constraintStart_toStartOf="parent"
@@ -113,9 +112,9 @@
 
     <Button
         android:id="@+id/clear_selected_btn"
-        android:layout_width="140dp"
+        android:layout_width="145dp"
         android:layout_height="50dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="8dp"
         android:text="@string/clear_selected"
         app:layout_constraintStart_toStartOf="parent"
