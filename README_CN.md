@@ -22,7 +22,7 @@ EasyAlbum的特性包括单不限于以下列表：
 
 ### 2.1 下载
 ```gradle
-implementation 'io.github.billywei01:easyalbum:1.0.5'
+implementation 'io.github.billywei01:easyalbum:1.0.6'
 ```
 
 ### 2.2 全局配置
@@ -53,6 +53,10 @@ EasyAlbum.from(this)
 ```
 
 EasyAlbum启动相册页面以from起头，以start结束。
+
+## 三、相关链接
+
+https://www.jianshu.com/p/311c3e54f530
 
 ## License
 See the [LICENSE](LICENSE) file for license rights and limitations.

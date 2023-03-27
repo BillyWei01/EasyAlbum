@@ -1,7 +1,7 @@
 # EasyAlbum
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.billywei01/easyalbum)](https://search.maven.org/artifact/io.github.billywei01/easyalbum)｜[中文文档](README_CN.md)
 
-EasyAlbum is a easy to use media image and video selector for Android.
+EasyAlbum is an easy to use media image and video selector for Android.
 
 ## 1. Feature
 
@@ -16,15 +16,13 @@ EasyAlbum is a easy to use media image and video selector for Android.
 - Caching media data, be fast to reopen album；
 - Support preload to speed up the first time of opening album.
 
-
-
 ![](images/easy_album_en.jpg)
 
 ## 2. Getting start
 ### 2.1 Download
 
 ```gradle
-implementation 'io.github.billywei01:easyalbum:1.0.5'
+implementation 'io.github.billywei01:easyalbum:1.0.6'
 ```
 
 ### 2.2 Global Config
