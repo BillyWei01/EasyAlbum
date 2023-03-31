@@ -22,7 +22,7 @@ EasyAlbum的特性包括单不限于以下列表：
 
 ### 2.1 下载
 ```gradle
-implementation 'io.github.billywei01:easyalbum:1.0.7'
+implementation 'io.github.billywei01:easyalbum:1.0.8'
 ```
 
 ### 2.2 全局配置
