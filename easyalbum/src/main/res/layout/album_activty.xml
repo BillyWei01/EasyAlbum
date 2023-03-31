@@ -96,7 +96,7 @@
             android:layout_marginStart="16dp"
             android:gravity="center"
             android:text="@string/album_preview"
-            android:textColor="@color/album_text_color_disable"
+            android:textColor="@color/album_preview_btn_select"
             android:textSize="@dimen/album_common_text_size" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
