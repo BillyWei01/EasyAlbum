@@ -4,11 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/album_primary"
+    android:background="@color/white"
     tools:ignore="SpUsage">
-    <!--
-       android:fitsSystemWindows="true"
-    -->
 
     <FrameLayout
         android:id="@+id/album_header"
@@ -19,6 +16,7 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/album_close_iv"
             android:layout_width="@dimen/album_header_height"
+            android:tint="@color/black"
             android:layout_height="@dimen/album_header_height"
             android:padding="14dp"
             app:srcCompat="@drawable/album_ic_close" />
@@ -29,7 +27,7 @@
             android:layout_height="29dp"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="44dp"
-            android:background="@drawable/album_bg_folder"
+            android:background="@drawable/album_bg_folder_white"
             android:gravity="center_vertical"
             android:paddingStart="10dp"
             android:paddingEnd="6dp">
@@ -40,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="6dp"
                 android:gravity="center"
-                android:textColor="@color/album_text_color"
+                android:textColor="@color/black"
                 android:textSize="@dimen/album_common_text_size"
                 tools:text="@string/album_all" />
 
@@ -49,7 +47,7 @@
                 android:layout_width="17dp"
                 android:layout_height="17dp"
                 android:layout_marginTop="0.5dp"
-                android:background="@drawable/album_bg_dropdown"
+                android:background="@drawable/album_bg_folder_white"
                 android:padding="2.5dp"
                 app:srcCompat="@drawable/album_ic_dropdown" />
 
@@ -61,9 +59,9 @@
             android:layout_height="29dp"
             android:layout_gravity="end|center_vertical"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/album_bg_btn_done"
             android:enabled="false"
             android:gravity="center"
+            android:background="@drawable/album_bg_btn_done_white"
             android:minWidth="50dp"
             android:paddingHorizontal="11dp"
             android:text="@string/album_done"
@@ -96,7 +94,7 @@
             android:layout_marginStart="16dp"
             android:gravity="center"
             android:text="@string/album_preview"
-            android:textColor="@color/album_text_color_disable"
+            android:textColor="@color/album_select_n_bg"
             android:textSize="@dimen/album_common_text_size" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,7 +107,7 @@
                 android:id="@+id/album_original_iv"
                 android:layout_width="15dp"
                 android:layout_height="15dp"
-                android:src="@drawable/album_bg_original_n"
+                android:src="@drawable/album_bg_original_n_white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/album_original_tv"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,7 +120,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
                 android:text="@string/album_original"
-                android:textColor="@color/album_text_color"
+                android:textColor="@color/black"
                 android:textSize="@dimen/album_common_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

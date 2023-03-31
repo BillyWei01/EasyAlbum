@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val context = this
+        initLayoutStyle()
 
         multi_choice_btn.onClick {
             selectLimit = getMultiChoiceLimit()
@@ -122,6 +123,22 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun initLayoutStyle(){
+        if(radio_custom_white.isChecked) {
+            EasyAlbum.config()
+                .setCustomAlbumLayout(R.layout.activty_album_white_sample)
+                .setCustomAlbumItemLayout(R.layout.adapter_media_item_white_sample)
+                .setCustomFolderItemLayout(R.layout.adapter_folder_sample)
+                .setCustomPreviewLayout(R.layout.activity_preview_white_sample)
+                .setCustomFolderBgColor(R.color.white)
+                .setUseDarkStatusIcon(true)
+                .setUseCustomLayout(true)
+                .setUseCustomLayout(true)
+        }else{
+            EasyAlbum.config().setUseCustomLayout(false)
+        }
+    }
+
     private fun selectPhoto() {
         option = getOption()
         if (PermissionUtil.hasPermissions(*storagePermissions)) {
@@ -149,6 +166,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openAlbum() {
+        initLayoutStyle()
         EasyAlbum.from(this)
             .setFilter(getFilter(option))
             .setSelectedLimit(selectLimit)

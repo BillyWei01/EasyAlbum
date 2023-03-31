@@ -1,6 +1,7 @@
 package io.github.easyalbum.application
 
 import android.app.Application
+import androidx.recyclerview.widget.DefaultItemAnimator
 import io.github.album.EasyAlbum
 import io.github.easyalbum.album.DoodleImageLoader
 import io.github.easyalbum.album.GlideImageLoader
@@ -23,6 +24,6 @@ class MyApplication : Application() {
             .setImageLoader(GlideImageLoader)
             // .setImageLoader(DoodleImageLoader)
             .setDefaultFolderComparator { o1, o2 -> o1.name.compareTo(o2.name)}
-            //.setItemAnimator(DefaultItemAnimator())
+            .setItemAnimator(DefaultItemAnimator())
     }
 }

@@ -64,7 +64,7 @@ public final class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.album_activty);
+        setContentView(AlbumConfig.useCustomLayout ? AlbumConfig.customAlbumLayout : R.layout.album_activty);
         setWindowStatusBarColor();
         if (!Session.ready()) {
             // Should not be here
@@ -79,7 +79,9 @@ public final class AlbumActivity extends AppCompatActivity {
         try {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            int primaryColor = Utils.getColor(R.color.album_primary);
+            int primaryColor = Utils.getColor(AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListBgColor : R.color.album_primary);
+            int vis = AlbumConfig.useCustomLayout && AlbumConfig.useDarkStatusIcon ? window.getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0;
+            window.getDecorView().setSystemUiVisibility(vis);
             window.setStatusBarColor(primaryColor);
             window.setNavigationBarColor(primaryColor);
         } catch (Exception ignore) {
@@ -105,6 +107,12 @@ public final class AlbumActivity extends AppCompatActivity {
         originalIv = findViewById(R.id.album_original_iv);
         totalTv = findViewById(R.id.album_total_tv);
         previewTv = findViewById(R.id.album_preview_tv);
+
+        folderContainer.setOnClickListener(v -> {
+            if (isFolderShowing) {
+                hideFolder();
+            }
+        });
 
         ClickHelper.listen(findViewById(R.id.select_folder_layout), () -> {
             if (isFolderShowing) {
@@ -255,7 +263,8 @@ public final class AlbumActivity extends AppCompatActivity {
 
     private void initFolder() {
         folderRv = new RecyclerView(this);
-        folderRv.setBackgroundColor(this.getResources().getColor(R.color.album_primary));
+        int folderBgColor = AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListBgColor : R.color.album_primary;
+        folderRv.setBackgroundColor(this.getResources().getColor(folderBgColor));
         folderRv.setLayoutManager(new LinearLayoutManager(this));
         folderRv.setOutlineProvider(new RoundedBottomProvider(Utils.dp2px(10)));
         folderRv.setClipToOutline(true);

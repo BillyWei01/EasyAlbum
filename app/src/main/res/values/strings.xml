@@ -15,4 +15,7 @@
     <string name="storage_permission_request">The operation needs the storage access permission</string>
     <string name="to_system_setting">Go to system settings</string>
     <string name="select_pictures_and_videos_limit">You can choose %1$d pictures or videos at most</string>
+    <string name="custom_white_layout">Custom white</string>
+    <string name="default_layout">Default</string>
+    <string name="select_layout">Select Layout</string>
 </resources>

@@ -16,4 +16,7 @@
     <string name="storage_permission_request">此操作需要授权访问存储的权限</string>
     <string name="to_system_setting">前往系统设置</string>
     <string name="select_pictures_and_videos_limit">最多只能选择%1$d个图片或者视频</string>
+    <string name="custom_white_layout">自定义白色布局</string>
+    <string name="default_layout">默认布局</string>
+    <string name="select_layout">选择布局</string>
 </resources>
