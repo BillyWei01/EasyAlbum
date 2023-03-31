@@ -52,7 +52,7 @@
         android:layout_width="0dp"
         android:layout_height="1px"
         android:layout_marginStart="10dp"
-        android:background="@color/album_divider_color"
+        android:background="@color/album_select_n_bg_white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/folder_cover_iv" />

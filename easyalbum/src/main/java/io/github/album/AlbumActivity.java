@@ -79,7 +79,9 @@ public final class AlbumActivity extends AppCompatActivity {
         try {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            int primaryColor = Utils.getColor(R.color.album_primary);
+            int primaryColor = Utils.getColor(AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListBgColor : R.color.album_primary);
+            int vis = AlbumConfig.useCustomLayout && AlbumConfig.useDarkStatusIcon ? window.getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0;
+            window.getDecorView().setSystemUiVisibility(vis);
             window.setStatusBarColor(primaryColor);
             window.setNavigationBarColor(primaryColor);
         } catch (Exception ignore) {

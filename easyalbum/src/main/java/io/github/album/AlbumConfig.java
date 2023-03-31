@@ -24,6 +24,7 @@ public final class AlbumConfig {
     static int customFolderItemLayout;
     static int customPreviewLayout;
     static int customFolderListBgColor;
+    static boolean useDarkStatusIcon;
     static boolean useCustomLayout;
 
     // Default order is sorting by update time, desc.
@@ -116,6 +117,11 @@ public final class AlbumConfig {
 
     public AlbumConfig setCustomFolderBgColor(int customFolderListBgColor) {
         AlbumConfig.customFolderListBgColor = customFolderListBgColor;
+        return this;
+    }
+
+    public AlbumConfig setUseDarkStatusIcon(boolean useDarkStatusIcon) {
+        AlbumConfig.useDarkStatusIcon = useDarkStatusIcon;
         return this;
     }
 
