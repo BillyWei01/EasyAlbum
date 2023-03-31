@@ -366,11 +366,7 @@ public final class AlbumActivity extends AppCompatActivity {
         boolean enable = !Session.result.selectedList.isEmpty();
         doneTv.setEnabled(enable);
         doneTv.setText(Session.getDoneText());
-        if (enable) {
-            previewTv.setTextColor(Utils.getColor(R.color.album_text_color));
-        } else {
-            previewTv.setTextColor(Utils.getColor(R.color.album_text_color_disable));
-        }
+        previewTv.setEnabled(enable);
         itemAdapter.refreshUI();
         updateOriginalView();
     }
