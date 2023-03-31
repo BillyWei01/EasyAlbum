@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:ignore="SpUsage">
+
+    <FrameLayout
+        android:id="@+id/album_header"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/album_header_height"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/album_close_iv"
+            android:layout_width="@dimen/album_header_height"
+            android:tint="@color/black"
+            android:layout_height="@dimen/album_header_height"
+            android:padding="14dp"
+            app:srcCompat="@drawable/album_ic_close" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/select_folder_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="44dp"
+            android:background="@drawable/album_bg_folder_white"
+            android:gravity="center_vertical"
+            android:paddingStart="10dp"
+            android:paddingEnd="6dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/folder_name_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="6dp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:textSize="@dimen/album_common_text_size"
+                tools:text="@string/album_all" />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/album_dropdown_iv"
+                android:layout_width="17dp"
+                android:layout_height="17dp"
+                android:layout_marginTop="0.5dp"
+                android:background="@drawable/album_bg_folder_white"
+                android:padding="2.5dp"
+                app:srcCompat="@drawable/album_ic_dropdown" />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <TextView
+            android:id="@+id/album_done_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="29dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="16dp"
+            android:enabled="false"
+            android:gravity="center"
+            android:background="@drawable/album_bg_btn_done_white"
+            android:minWidth="50dp"
+            android:paddingHorizontal="11dp"
+            android:text="@string/album_done"
+            android:textColor="@color/album_text_color_select"
+            android:textSize="@dimen/album_common_text_size" />
+
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/album_media_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scrollbars="vertical"
+        app:layout_constraintBottom_toTopOf="@id/album_bottom"
+        app:layout_constraintTop_toBottomOf="@id/album_header"
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <FrameLayout
+        android:id="@+id/album_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/album_bottom_height"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <TextView
+            android:id="@+id/album_preview_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:text="@string/album_preview"
+            android:textColor="@color/album_select_n_bg"
+            android:textSize="@dimen/album_common_text_size" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/album_original"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center">
+
+            <ImageView
+                android:id="@+id/album_original_iv"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:src="@drawable/album_bg_original_n_white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/album_original_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:ignore="ContentDescription" />
+
+            <TextView
+                android:id="@+id/album_original_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:text="@string/album_original"
+                android:textColor="@color/black"
+                android:textSize="@dimen/album_common_text_size"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/album_original_iv"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/album_total_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="1dp"
+                android:textColor="@color/album_text_color_gray"
+                android:textSize="10dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="15M" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/folder_list_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@color/album_folder_mask"
+        android:paddingBottom="30dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/album_header" />
+
+    <FrameLayout
+        android:id="@+id/album_preview_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

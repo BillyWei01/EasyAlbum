@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:ignore="SpUsage">
+
+    <ImageView
+        android:id="@+id/album_item_iv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="H,1:1"
+        tools:ignore="ContentDescription" />
+
+    <View
+        android:id="@+id/album_selected_mask"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:background="@color/album_item_mask"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/album_item_iv"
+        app:layout_constraintEnd_toEndOf="@id/album_item_iv"
+        app:layout_constraintStart_toStartOf="@id/album_item_iv"
+        app:layout_constraintTop_toTopOf="@id/album_item_iv" />
+
+    <TextView
+        android:id="@+id/album_select_tv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:background="@drawable/album_bg_select_n"
+        android:gravity="center"
+        android:textColor="@color/album_text_color"
+        android:textSize="12dp"
+        app:layout_constraintEnd_toEndOf="@id/album_item_iv"
+        app:layout_constraintTop_toTopOf="@id/album_item_iv" />
+
+    <View
+        android:id="@+id/album_select_v"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/album_camera_iv"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="6dp"
+        android:layout_marginBottom="4dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/album_item_iv"
+        app:layout_constraintStart_toStartOf="@id/album_item_iv"
+        app:srcCompat="@drawable/album_ic_camera"
+        tools:visibility="visible" />
+
+    <TextView
+        android:id="@+id/album_duration_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/album_text_color"
+        android:textSize="15dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/album_camera_iv"
+        app:layout_constraintStart_toEndOf="@id/album_camera_iv"
+        app:layout_constraintTop_toTopOf="@id/album_camera_iv"
+        tools:text="0:06"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/album_gif_iv"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="3dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/album_item_iv"
+        app:layout_constraintStart_toStartOf="@id/album_item_iv"
+        app:srcCompat="@drawable/album_ic_gif"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

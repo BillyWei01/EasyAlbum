@@ -55,6 +55,47 @@
             android:textSize="16sp" />
     </RadioGroup>
 
+    <TextView
+        android:id="@+id/tv_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/select_layout"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="@id/multi_choice_btn"
+        app:layout_constraintTop_toBottomOf="@id/option_tv" />
+
+    <RadioGroup
+        android:id="@+id/group_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toEndOf="@id/option_tv"
+        app:layout_constraintTop_toBottomOf="@id/option_tv">
+
+        <RadioButton
+            android:id="@+id/radio_default"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/default_layout"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/radio_custom_white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="@string/custom_white_layout"
+            android:textColor="@color/black"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
     <Button
         android:id="@+id/multi_choice_btn"
         android:layout_width="145dp"
@@ -63,7 +104,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/multi_choice"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/option_group" />
+        app:layout_constraintTop_toBottomOf="@id/group_style" />
 
     <TextView
         android:id="@+id/limit_title_tv"

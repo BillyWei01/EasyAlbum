@@ -167,8 +167,9 @@ final class Preview {
     private void initView(List<MediaData> list, MediaData item) {
         this.mediaList = list;
         currentIndex = Math.max(mediaList.indexOf(item), 0);
+        int layout = AlbumConfig.useCustomLayout ? AlbumConfig.customPreviewLayout : R.layout.album_preview;
         View root = LayoutInflater.from(previewContainer.getContext())
-                .inflate(R.layout.album_preview, previewContainer, false);
+                .inflate(layout, previewContainer, false);
 
         rootView = root;
         previewContainer.setVisibility(View.VISIBLE);

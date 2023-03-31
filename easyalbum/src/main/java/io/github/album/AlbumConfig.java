@@ -19,6 +19,12 @@ public final class AlbumConfig {
     static boolean doDeletedChecking = true;
     static boolean doInfoChecking = false;
 
+    static int customAlbumLayout;
+    static int customAlbumListLayout;
+    static int customFolderListLayout;
+    static int customPreviewLayout;
+    static boolean useCustomLayout;
+
     // Default order is sorting by update time, desc.
     static Comparator<Folder> defaultFolderComparator =
             (o1, o2) -> Long.compare(o2.updatedTime, o1.updatedTime);
@@ -84,6 +90,31 @@ public final class AlbumConfig {
 
     public AlbumConfig disableResumeChecking() {
         doResumeChecking = false;
+        return this;
+    }
+
+    public AlbumConfig setCustomAlbumLayout(int customAlbumLayout) {
+        AlbumConfig.customAlbumLayout = customAlbumLayout;
+        return this;
+    }
+
+    public AlbumConfig setCustomAlbumListLayout(int customAlbumListLayout) {
+        AlbumConfig.customAlbumListLayout = customAlbumListLayout;
+        return this;
+    }
+
+    public AlbumConfig setCustomFolderListLayout(int customFolderListLayout) {
+        AlbumConfig.customFolderListLayout = customFolderListLayout;
+        return this;
+    }
+
+    public AlbumConfig setCustomPreviewLayout(int customPreviewLayout) {
+        AlbumConfig.customPreviewLayout = customPreviewLayout;
+        return this;
+    }
+
+    public AlbumConfig setUseCustomLayout(boolean useCustomLayout) {
+        AlbumConfig.useCustomLayout = useCustomLayout;
         return this;
     }
 

@@ -64,7 +64,7 @@ public final class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.album_activty);
+        setContentView(AlbumConfig.useCustomLayout ? AlbumConfig.customAlbumLayout : R.layout.album_activty);
         setWindowStatusBarColor();
         if (!Session.ready()) {
             // Should not be here
