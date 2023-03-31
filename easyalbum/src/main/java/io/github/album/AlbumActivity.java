@@ -106,6 +106,12 @@ public final class AlbumActivity extends AppCompatActivity {
         totalTv = findViewById(R.id.album_total_tv);
         previewTv = findViewById(R.id.album_preview_tv);
 
+        folderContainer.setOnClickListener(v -> {
+            if (isFolderShowing) {
+                hideFolder();
+            }
+        });
+
         ClickHelper.listen(findViewById(R.id.select_folder_layout), () -> {
             if (isFolderShowing) {
                 hideFolder();
