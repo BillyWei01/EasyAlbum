@@ -20,9 +20,10 @@ public final class AlbumConfig {
     static boolean doInfoChecking = false;
 
     static int customAlbumLayout;
-    static int customAlbumListLayout;
-    static int customFolderListLayout;
+    static int customAlbumItemLayout;
+    static int customFolderItemLayout;
     static int customPreviewLayout;
+    static int customFolderListBgColor;
     static boolean useCustomLayout;
 
     // Default order is sorting by update time, desc.
@@ -98,18 +99,23 @@ public final class AlbumConfig {
         return this;
     }
 
-    public AlbumConfig setCustomAlbumListLayout(int customAlbumListLayout) {
-        AlbumConfig.customAlbumListLayout = customAlbumListLayout;
+    public AlbumConfig setCustomAlbumItemLayout(int customAlbumItemLayout) {
+        AlbumConfig.customAlbumItemLayout = customAlbumItemLayout;
         return this;
     }
 
-    public AlbumConfig setCustomFolderListLayout(int customFolderListLayout) {
-        AlbumConfig.customFolderListLayout = customFolderListLayout;
+    public AlbumConfig setCustomFolderItemLayout(int customFolderItemLayout) {
+        AlbumConfig.customFolderItemLayout = customFolderItemLayout;
         return this;
     }
 
     public AlbumConfig setCustomPreviewLayout(int customPreviewLayout) {
         AlbumConfig.customPreviewLayout = customPreviewLayout;
+        return this;
+    }
+
+    public AlbumConfig setCustomFolderBgColor(int customFolderListBgColor) {
+        AlbumConfig.customFolderListBgColor = customFolderListBgColor;
         return this;
     }
 

@@ -127,8 +127,8 @@ class MainActivity : AppCompatActivity() {
         if(radio_custom_white.isChecked) {
             EasyAlbum.config()
                 .setCustomAlbumLayout(R.layout.activty_album_white_sample)
-                .setCustomAlbumListLayout(R.layout.adapter_media_item_white_sample)
-                .setCustomFolderListLayout(R.layout.adapter_folder_sample)
+                .setCustomAlbumItemLayout(R.layout.adapter_media_item_white_sample)
+                .setCustomFolderItemLayout(R.layout.adapter_folder_sample)
                 .setCustomPreviewLayout(R.layout.activity_preview_white_sample)
                 .setUseCustomLayout(true)
         }else{

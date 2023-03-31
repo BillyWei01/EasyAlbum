@@ -129,7 +129,7 @@ class MediaItemAdapter extends RecyclerView.Adapter<MediaItemViewHolder> {
     @NonNull
     @Override
     public MediaItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layout = AlbumConfig.useCustomLayout ? AlbumConfig.customAlbumListLayout : R.layout.album_media_item;
+        int layout = AlbumConfig.useCustomLayout ? AlbumConfig.customAlbumItemLayout : R.layout.album_media_item;
         View itemView = inflater.inflate(layout, parent, false);
         MediaItemViewHolder holder = new MediaItemViewHolder(itemView);
         holder.itemView.setOnClickListener(v -> eventListener.onItemClick(holder.item));

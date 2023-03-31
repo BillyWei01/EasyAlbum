@@ -52,7 +52,7 @@ final class FolderAdapter extends RecyclerView.Adapter<FolderViewHolder> {
     @NonNull
     @Override
     public FolderViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        int layout = AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListLayout : R.layout.album_folder;
+        int layout = AlbumConfig.useCustomLayout ? AlbumConfig.customFolderItemLayout : R.layout.album_folder;
         FolderViewHolder holder =  new FolderViewHolder(inflater.inflate(layout, parent, false));
         holder.itemView.setOnClickListener(v -> {
             listener.onSelect(holder.folder);

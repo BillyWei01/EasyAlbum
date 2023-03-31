@@ -261,7 +261,8 @@ public final class AlbumActivity extends AppCompatActivity {
 
     private void initFolder() {
         folderRv = new RecyclerView(this);
-        folderRv.setBackgroundColor(this.getResources().getColor(R.color.album_primary));
+        int folderBgColor = AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListBgColor : R.color.album_primary;
+        folderRv.setBackgroundColor(this.getResources().getColor(folderBgColor));
         folderRv.setLayoutManager(new LinearLayoutManager(this));
         folderRv.setOutlineProvider(new RoundedBottomProvider(Utils.dp2px(10)));
         folderRv.setClipToOutline(true);
