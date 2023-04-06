@@ -28,8 +28,6 @@ class MainActivity : AppCompatActivity() {
 
         var minSize = 1L
         var maxSize = Long.MAX_VALUE
-        var minWidth = 1
-        var minHeight = 1
 
         private val storagePermissions = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -65,10 +63,8 @@ class MainActivity : AppCompatActivity() {
                 Option.IMAGE -> !media.isVideo
                 else -> true
             }
-            val valid = ((media.fileSize in ((minSize + 1) until maxSize))
-                    && (media.width > minWidth)
-                    && (media.height > minHeight))
-            return if (opt == Option.ALL) valid else mediaType && valid
+            val valid = (media.fileSize in ((minSize + 1) until maxSize))
+            return mediaType && valid
         }
 
         override fun tag(): String {
