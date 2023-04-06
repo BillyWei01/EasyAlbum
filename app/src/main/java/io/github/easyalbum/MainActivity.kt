@@ -4,9 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import io.github.album.AlbumRequest
@@ -25,6 +25,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val RC_READ_WRITE_STORAGE = 1
+
+        var minSize = 1L
+        var maxSize = Long.MAX_VALUE
+        var minWidth = 1
+        var minHeight = 1
 
         private val storagePermissions = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -59,7 +64,9 @@ class MainActivity : AppCompatActivity() {
                 Option.VIDEO -> media.isVideo
                 Option.IMAGE -> !media.isVideo
                 else -> true
-            }
+            } && ((media.fileSize in ((minSize + 1) until maxSize))
+                    && (media.width > minWidth)
+                    && (media.height > minHeight))
         }
 
         override fun tag(): String {
