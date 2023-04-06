@@ -60,13 +60,15 @@ class MainActivity : AppCompatActivity() {
 
     private class TestMediaFilter(private val opt: Option) : MediaFilter {
         override fun accept(media: MediaData): Boolean {
-            return when (opt) {
+            val mediaType = when (opt) {
                 Option.VIDEO -> media.isVideo
                 Option.IMAGE -> !media.isVideo
                 else -> true
-            } && ((media.fileSize in ((minSize + 1) until maxSize))
+            }
+            val valid = ((media.fileSize in ((minSize + 1) until maxSize))
                     && (media.width > minWidth)
                     && (media.height > minHeight))
+            return if (opt == Option.ALL) valid else mediaType && valid
         }
 
         override fun tag(): String {
@@ -167,8 +169,8 @@ class MainActivity : AppCompatActivity() {
         else o1.name.compareTo(o2.name)
     }
 
-    private fun getFilter(opt: Option): MediaFilter? {
-        return if (opt == Option.ALL) null else TestMediaFilter(option)
+    private fun getFilter(opt: Option): MediaFilter {
+        return TestMediaFilter(option)
     }
 
     private fun openAlbum() {
