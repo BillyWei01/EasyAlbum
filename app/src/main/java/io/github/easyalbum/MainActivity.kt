@@ -4,9 +4,9 @@ import android.Manifest
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import io.github.album.AlbumRequest
@@ -25,6 +25,9 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : AppCompatActivity() {
     companion object {
         private const val RC_READ_WRITE_STORAGE = 1
+
+        var minSize = 1L
+        var maxSize = Long.MAX_VALUE
 
         private val storagePermissions = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -55,11 +58,13 @@ class MainActivity : AppCompatActivity() {
 
     private class TestMediaFilter(private val opt: Option) : MediaFilter {
         override fun accept(media: MediaData): Boolean {
-            return when (opt) {
+            val mediaType = when (opt) {
                 Option.VIDEO -> media.isVideo
                 Option.IMAGE -> !media.isVideo
                 else -> true
             }
+            val valid = (media.fileSize in ((minSize + 1) until maxSize))
+            return mediaType && valid
         }
 
         override fun tag(): String {
@@ -160,8 +165,8 @@ class MainActivity : AppCompatActivity() {
         else o1.name.compareTo(o2.name)
     }
 
-    private fun getFilter(opt: Option): MediaFilter? {
-        return if (opt == Option.ALL) null else TestMediaFilter(option)
+    private fun getFilter(opt: Option): MediaFilter {
+        return TestMediaFilter(option)
     }
 
     private fun openAlbum() {
