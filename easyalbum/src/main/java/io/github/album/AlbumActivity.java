@@ -270,10 +270,12 @@ public final class AlbumActivity extends AppCompatActivity {
         folderRv.setClipToOutline(true);
         folderAdapter = new FolderAdapter(this, this::isSelected, this::updateFolder);
         folderRv.setAdapter(folderAdapter);
-        folderContainer.addView(folderRv, new ViewGroup.MarginLayoutParams(
+        ViewGroup.MarginLayoutParams mlp = new ViewGroup.MarginLayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
-        ));
+        );
+        mlp.bottomMargin = Utils.dp2px(120);
+        folderContainer.addView(folderRv, mlp);
         folderAdapter.update(data);
     }
 
@@ -426,6 +428,8 @@ public final class AlbumActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (preview != null && preview.isShowing()) {
             preview.close();
+        } else if (isFolderShowing) {
+            hideFolder();
         } else {
             finishActivity();
         }
