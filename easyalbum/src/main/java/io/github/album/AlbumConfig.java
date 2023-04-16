@@ -19,13 +19,7 @@ public final class AlbumConfig {
     static boolean doDeletedChecking = true;
     static boolean doInfoChecking = false;
 
-    static int customAlbumLayout;
-    static int customAlbumItemLayout;
-    static int customFolderItemLayout;
-    static int customPreviewLayout;
-    static int customFolderListBgColor;
-    static boolean useDarkStatusIcon;
-    static boolean useCustomLayout;
+    static AlbumStyle style = new AlbumStyle();
 
     // Default order is sorting by update time, desc.
     static Comparator<Folder> defaultFolderComparator =
@@ -35,6 +29,13 @@ public final class AlbumConfig {
     }
 
     static final AlbumConfig INSTANCE = new AlbumConfig();
+
+    public AlbumConfig setStyle(AlbumStyle style) {
+        if (style != null) {
+            AlbumConfig.style = style;
+        }
+        return this;
+    }
 
     public AlbumConfig setLogger(AlbumLogger logger) {
         LogProxy.register(logger);
@@ -92,41 +93,6 @@ public final class AlbumConfig {
 
     public AlbumConfig disableResumeChecking() {
         doResumeChecking = false;
-        return this;
-    }
-
-    public AlbumConfig setCustomAlbumLayout(int customAlbumLayout) {
-        AlbumConfig.customAlbumLayout = customAlbumLayout;
-        return this;
-    }
-
-    public AlbumConfig setCustomAlbumItemLayout(int customAlbumItemLayout) {
-        AlbumConfig.customAlbumItemLayout = customAlbumItemLayout;
-        return this;
-    }
-
-    public AlbumConfig setCustomFolderItemLayout(int customFolderItemLayout) {
-        AlbumConfig.customFolderItemLayout = customFolderItemLayout;
-        return this;
-    }
-
-    public AlbumConfig setCustomPreviewLayout(int customPreviewLayout) {
-        AlbumConfig.customPreviewLayout = customPreviewLayout;
-        return this;
-    }
-
-    public AlbumConfig setCustomFolderBgColor(int customFolderListBgColor) {
-        AlbumConfig.customFolderListBgColor = customFolderListBgColor;
-        return this;
-    }
-
-    public AlbumConfig setUseDarkStatusIcon(boolean useDarkStatusIcon) {
-        AlbumConfig.useDarkStatusIcon = useDarkStatusIcon;
-        return this;
-    }
-
-    public AlbumConfig setUseCustomLayout(boolean useCustomLayout) {
-        AlbumConfig.useCustomLayout = useCustomLayout;
         return this;
     }
 

@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.recyclerview.widget.GridLayoutManager
 import io.github.album.AlbumRequest
+import io.github.album.AlbumStyle
 import io.github.album.EasyAlbum
 import io.github.album.Folder
 import io.github.album.MediaData
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val RC_READ_WRITE_STORAGE = 1
 
+        // Just for example
         var minSize = 1L
         var maxSize = Long.MAX_VALUE
 
@@ -128,18 +130,18 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initLayoutStyle(){
-        if(radio_custom_white.isChecked) {
-            EasyAlbum.config()
-                .setCustomAlbumLayout(R.layout.activity_album_white_sample)
-                .setCustomAlbumItemLayout(R.layout.adapter_media_item_white_sample)
-                .setCustomFolderItemLayout(R.layout.adapter_folder_sample)
-                .setCustomPreviewLayout(R.layout.activity_preview_white_sample)
-                .setCustomFolderBgColor(R.color.white)
-                .setUseDarkStatusIcon(true)
-                .setUseCustomLayout(true)
-        }else{
-            EasyAlbum.config().setUseCustomLayout(false)
+    private fun initLayoutStyle() {
+        if (radio_custom_white.isChecked) {
+            EasyAlbum.config().setStyle(AlbumStyle().apply {
+                albumLayout = R.layout.activity_album_white_sample
+                albumItemLayout = R.layout.adapter_media_item_white_sample
+                folderItemLayout = R.layout.adapter_folder_sample
+                previewLayout = R.layout.activity_preview_white_sample
+                primaryColor = R.color.white
+                useLightStatusBar = true
+            })
+        } else {
+            EasyAlbum.config().setStyle(AlbumStyle())
         }
     }
 
@@ -165,14 +167,10 @@ class MainActivity : AppCompatActivity() {
         else o1.name.compareTo(o2.name)
     }
 
-    private fun getFilter(opt: Option): MediaFilter {
-        return TestMediaFilter(option)
-    }
-
     private fun openAlbum() {
         initLayoutStyle()
         EasyAlbum.from(this)
-            .setFilter(getFilter(option))
+            .setFilter(TestMediaFilter(option))
             .setSelectedLimit(selectLimit)
             .setOverLimitCallback(overLimitCallback)
             .setSelectedList(mediaAdapter?.getData())
@@ -184,7 +182,11 @@ class MainActivity : AppCompatActivity() {
             }
     }
 
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == RC_READ_WRITE_STORAGE) {
             if (PermissionUtil.allGran(grantResults)) {
@@ -200,7 +202,12 @@ class MainActivity : AppCompatActivity() {
             .setTitle(R.string.storage_permission_request)
             .setPositiveButton(R.string.to_system_setting) { _, _ ->
                 val packageUri = Uri.parse("package:${GlobalConfig.appContext.packageName}")
-                storageResultObserver.launch(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS, packageUri))
+                storageResultObserver.launch(
+                    Intent(
+                        Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
+                        packageUri
+                    )
+                )
             }.show()
     }
 }

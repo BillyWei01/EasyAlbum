@@ -135,10 +135,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="1dp"
                 android:textColor="@color/album_text_color_gray"
-                android:textSize="10dp"
+                android:textSize="@dimen/album_total_tv_text_size"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                tools:ignore="TextContrastCheck"
                 tools:text="15M" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -150,7 +151,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/album_folder_mask"
-        android:paddingBottom="30dp"
+        android:paddingBottom="80dp"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/album_header" />

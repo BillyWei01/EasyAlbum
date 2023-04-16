@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.os.Bundle;
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -64,7 +65,7 @@ public final class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(AlbumConfig.useCustomLayout ? AlbumConfig.customAlbumLayout : R.layout.album_activty);
+        setContentView(AlbumConfig.style.albumLayout);
         setWindowStatusBarColor();
         if (!Session.ready()) {
             // Should not be here
@@ -79,11 +80,14 @@ public final class AlbumActivity extends AppCompatActivity {
         try {
             Window window = this.getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            int primaryColor = Utils.getColor(AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListBgColor : R.color.album_primary);
-            int vis = AlbumConfig.useCustomLayout && AlbumConfig.useDarkStatusIcon ? window.getDecorView().getSystemUiVisibility() | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR : 0;
-            window.getDecorView().setSystemUiVisibility(vis);
+            int primaryColor = Utils.getColor(AlbumConfig.style.primaryColor);
             window.setStatusBarColor(primaryColor);
             window.setNavigationBarColor(primaryColor);
+            if (AlbumConfig.style.useLightStatusBar && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                View decorView = window.getDecorView();
+                int visibility = decorView.getSystemUiVisibility();
+                decorView.setSystemUiVisibility(visibility | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
         } catch (Exception ignore) {
         }
     }
@@ -263,19 +267,17 @@ public final class AlbumActivity extends AppCompatActivity {
 
     private void initFolder() {
         folderRv = new RecyclerView(this);
-        int folderBgColor = AlbumConfig.useCustomLayout ? AlbumConfig.customFolderListBgColor : R.color.album_primary;
-        folderRv.setBackgroundColor(this.getResources().getColor(folderBgColor));
+        folderRv.setBackgroundColor(this.getResources().getColor(AlbumConfig.style.primaryColor));
         folderRv.setLayoutManager(new LinearLayoutManager(this));
         folderRv.setOutlineProvider(new RoundedBottomProvider(Utils.dp2px(10)));
         folderRv.setClipToOutline(true);
         folderAdapter = new FolderAdapter(this, this::isSelected, this::updateFolder);
         folderRv.setAdapter(folderAdapter);
-        ViewGroup.MarginLayoutParams mlp = new ViewGroup.MarginLayoutParams(
+        folderContainer.setPadding(0,0,0, AlbumConfig.style.folderPaddingBottom);
+        folderContainer.addView(folderRv, new ViewGroup.MarginLayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
-        );
-        mlp.bottomMargin = Utils.dp2px(120);
-        folderContainer.addView(folderRv, mlp);
+        ));
         folderAdapter.update(data);
     }
 

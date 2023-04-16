@@ -167,9 +167,8 @@ final class Preview {
     private void initView(List<MediaData> list, MediaData item) {
         this.mediaList = list;
         currentIndex = Math.max(mediaList.indexOf(item), 0);
-        int layout = AlbumConfig.useCustomLayout ? AlbumConfig.customPreviewLayout : R.layout.album_preview;
         View root = LayoutInflater.from(previewContainer.getContext())
-                .inflate(layout, previewContainer, false);
+                .inflate(AlbumConfig.style.previewLayout, previewContainer, false);
 
         rootView = root;
         previewContainer.setVisibility(View.VISIBLE);
@@ -307,7 +306,7 @@ final class Preview {
         PreviewViewPager viewPager = holder.viewPager;
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(currentIndex);
-        viewPager.setOffscreenPageLimit(1);
+        viewPager.setOffscreenPageLimit(2);
 
         viewPager.addOnPageChangeListener(new OnPageChangeListener() {
             @Override
