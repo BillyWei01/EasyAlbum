@@ -237,15 +237,15 @@ public final class AlbumActivity extends AppCompatActivity {
         return result.get(0);
     }
 
-    private void removeDeleted(Set<MediaData> deleted) {
-        if (deleted.isEmpty()) {
+    private void removeDeleted(List<MediaData> invalidList) {
+        if (invalidList.isEmpty()) {
             return;
         }
-        boolean selectedChanged = Session.result.selectedList.retainAll(deleted);
+        boolean selectedChanged = Session.result.selectedList.retainAll(invalidList);
         Iterator<Folder> it = data.listIterator();
         while (it.hasNext()) {
             Folder folder = it.next();
-            boolean changed = folder.mediaList.removeAll(deleted);
+            boolean changed = folder.mediaList.removeAll(invalidList);
             if (folder == currentFolder && (selectedChanged || changed)) {
                 itemAdapter.refreshUI();
             }

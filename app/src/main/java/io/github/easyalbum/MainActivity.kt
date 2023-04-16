@@ -27,10 +27,6 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val RC_READ_WRITE_STORAGE = 1
 
-        // Just for example
-        var minSize = 1L
-        var maxSize = Long.MAX_VALUE
-
         private val storagePermissions = arrayOf(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -58,15 +54,13 @@ class MainActivity : AppCompatActivity() {
         IMAGE(getStr(R.string.all_images))
     }
 
-    private class TestMediaFilter(private val opt: Option) : MediaFilter {
+    private class TypeMediaFilter(private val opt: Option) : MediaFilter {
         override fun accept(media: MediaData): Boolean {
-            val mediaType = when (opt) {
+            return when (opt) {
                 Option.VIDEO -> media.isVideo
                 Option.IMAGE -> !media.isVideo
                 else -> true
             }
-            val valid = (media.fileSize in ((minSize + 1) until maxSize))
-            return mediaType && valid
         }
 
         override fun tag(): String {
@@ -170,7 +164,7 @@ class MainActivity : AppCompatActivity() {
     private fun openAlbum() {
         initLayoutStyle()
         EasyAlbum.from(this)
-            .setFilter(TestMediaFilter(option))
+            .setFilter(TypeMediaFilter(option))
             .setSelectedLimit(selectLimit)
             .setOverLimitCallback(overLimitCallback)
             .setSelectedList(mediaAdapter?.getData())

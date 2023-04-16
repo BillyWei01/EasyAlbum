@@ -17,7 +17,7 @@ public final class AlbumConfig {
     static boolean doResumeChecking = true;
 
     static boolean doDeletedChecking = true;
-    static boolean doInfoChecking = false;
+    static boolean doInfoChecking = true;
 
     static AlbumStyle style = new AlbumStyle();
 
@@ -121,11 +121,13 @@ public final class AlbumConfig {
      * So we provider an option:
      * To check/read the MediaData info in background after creating MediaData object.
      * In this way, when read info of MediaData, the value may be checked and ready.
+     * <p>
+     * The option is opening by default.
      *
      * @return AlbumConfig
      */
-    public AlbumConfig enableInfoChecking() {
-        doInfoChecking = true;
+    public AlbumConfig disableInfoChecking() {
+        doInfoChecking = false;
         return this;
     }
 }

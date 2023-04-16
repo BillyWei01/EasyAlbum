@@ -14,15 +14,15 @@ import java.io.FileNotFoundException;
 final class MediaInfoReader {
     static boolean fetchInfo(MediaData data) {
         boolean missing = false;
-        if (data.fileSize == 0L) {
+        if (data.fileSize == 0L && Utils.hasReadPermission()) {
             try {
                 data.fileSize = new File(data.getPath()).length();
                 missing = true;
             } catch (Throwable ignore) {
             }
-        }
-        if (data.fileSize == 0L) {
-            return false;
+            if (data.fileSize == 0L) {
+                return false;
+            }
         }
 
         if (data.width == 0L

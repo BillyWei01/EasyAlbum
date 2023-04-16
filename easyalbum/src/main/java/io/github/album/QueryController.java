@@ -3,7 +3,6 @@ package io.github.album;
 import androidx.annotation.NonNull;
 
 import java.util.List;
-import java.util.Set;
 
 import io.github.album.MediaLoader.DataListener;
 import io.github.album.MediaLoader.DeletedListener;
@@ -44,12 +43,12 @@ final class QueryController {
         }
     }
 
-    void postDeleted(@NonNull final Set<MediaData> deletedSet) {
-        if (deletedListener != null && !deletedSet.isEmpty()) {
+    void postInvalid(@NonNull final List<MediaData> invalidList) {
+        if (deletedListener != null && !invalidList.isEmpty()) {
             Utils.uiHandler.post(() -> {
                 DeletedListener listener = deletedListener;
                 if (listener != null) {
-                    listener.onDelete(deletedSet);
+                    listener.onDelete(invalidList);
                 }
             });
         }

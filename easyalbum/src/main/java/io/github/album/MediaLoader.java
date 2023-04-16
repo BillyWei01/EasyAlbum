@@ -11,6 +11,7 @@ import androidx.core.content.ContentResolverCompat;
 
 import java.io.File;
 import java.util.*;
+
 import io.github.album.interfaces.MediaFilter;
 
 final class MediaLoader {
@@ -59,7 +60,7 @@ final class MediaLoader {
     private static QueryController preloadController = null;
 
     private static boolean hasCache = false;
-    private static boolean hadCheckedDeleted = false;
+    private static boolean hadCheckedExists = false;
     private static final Set<Integer> notExistSet = new HashSet<>();
     private static final Map<Integer, MediaData> mediaCache = new LinkedHashMap<>();
     private static final Map<String, List<Folder>> resultCache = new HashMap<>();
@@ -78,7 +79,7 @@ final class MediaLoader {
     }
 
     public interface DeletedListener {
-        void onDelete(@NonNull Set<MediaData> deleted);
+        void onDelete(@NonNull List<MediaData> deleted);
     }
 
     public static void start(final AlbumRequest request, final QueryController controller) {
@@ -99,12 +100,12 @@ final class MediaLoader {
 
                 boolean hasDataChanged;
                 if (!hasCache) {
-                    load();
+                    load(controller);
                     hasCache = true;
                     hasDataChanged = true;
                     logTime("Load time:", startTime);
                 } else {
-                    hasDataChanged = refresh();
+                    hasDataChanged = refresh(controller);
                     logTime("Refresh time:", startTime);
                 }
 
@@ -131,8 +132,8 @@ final class MediaLoader {
                 }
                 LogProxy.d(TAG, "Media count:" + mediaCache.size());
 
-                if (AlbumConfig.doDeletedChecking && !hadCheckedDeleted && !controller.isCancelled) {
-                    checkDeleted(controller, startTime);
+                if (AlbumConfig.doDeletedChecking && !hadCheckedExists && !controller.isCancelled) {
+                    checkExists(controller, startTime);
                 }
             } catch (Throwable t) {
                 LogProxy.e(TAG, t);
@@ -164,10 +165,10 @@ final class MediaLoader {
             }
             long startTime = SystemClock.uptimeMillis();
             try {
-                load();
+                load(controller);
                 hasCache = true;
-                if (AlbumConfig.doDeletedChecking && !hadCheckedDeleted && !controller.isCancelled) {
-                    checkDeleted(controller, startTime);
+                if (AlbumConfig.doDeletedChecking && !hadCheckedExists && !controller.isCancelled) {
+                    checkExists(controller, startTime);
                 }
             } catch (Throwable t) {
                 LogProxy.e(TAG, t);
@@ -198,17 +199,17 @@ final class MediaLoader {
         }
     }
 
-    private static void load() {
+    private static void load(final QueryController controller) {
         List<MediaData> list = query(null);
         if (list != null && !list.isEmpty()) {
             for (MediaData item : list) {
                 mediaCache.put(item.mediaId, item);
             }
-            checkInfo(list);
+            checkInfo(list, controller);
         }
     }
 
-    private static boolean refresh() {
+    private static boolean refresh(final QueryController controller) {
         Cursor cursor = ContentResolverCompat.query(
                 Utils.appContext.getContentResolver(),
                 CONTENT_URI, ID_PROJECTION, TYPE_SELECTION, null, null, null
@@ -241,25 +242,29 @@ final class MediaLoader {
             // query the increment
             StringBuilder builder = new StringBuilder();
             if (ids.size() < 50) {
-                queryByIds(ids, builder);
+                queryByIds(ids, builder, controller);
             } else {
                 List<Integer> idList = new ArrayList<>();
                 for (Integer id : ids) {
                     idList.add(id);
                     if (idList.size() == 50) {
-                        queryByIds(idList, builder);
+                        queryByIds(idList, builder, controller);
                         idList.clear();
                     }
                 }
                 if (!idList.isEmpty()) {
-                    queryByIds(idList, builder);
+                    queryByIds(idList, builder, controller);
                 }
             }
         }
         return true;
     }
 
-    private static void queryByIds(List<Integer> idList, StringBuilder builder) {
+    private static void queryByIds(
+            List<Integer> idList,
+            StringBuilder builder,
+            final QueryController controller
+    ) {
         builder.setLength(0);
         if (idList.size() == 1) {
             builder.append(MediaStore.MediaColumns._ID).append('=').append(idList.get(0));
@@ -292,24 +297,43 @@ final class MediaLoader {
             if (!excludeList.isEmpty()) {
                 list.removeAll(excludeList);
             }
-            checkInfo(list);
+            checkInfo(list, controller);
         }
     }
 
-    private static void checkInfo(final List<MediaData> list) {
+    private static void checkInfo(final List<MediaData> list, final QueryController controller) {
         if (!AlbumConfig.doInfoChecking || list.isEmpty()) {
             return;
         }
         checkingExecutor.execute(() -> {
             int count = 0;
             long t0 = SystemClock.uptimeMillis();
+            List<MediaData> emptyFileMedias = new ArrayList<>();
             for (MediaData item : list) {
                 if (item.fillData()) {
+                    if (item.fileSize <= 0L && Utils.hasReadPermission()) {
+                        emptyFileMedias.add(item);
+                    }
                     count++;
                 }
             }
+            if (!emptyFileMedias.isEmpty()) {
+                markEmptyMedia(emptyFileMedias, controller);
+                LogProxy.d(TAG, "There are " + emptyFileMedias.size() + " empty files");
+            }
             long t1 = SystemClock.uptimeMillis();
             LogProxy.d(TAG, "Check info finish, missing count:" + count + ", used:" + (t1 - t0) + "ms");
+        });
+    }
+
+    private static void markEmptyMedia(final List<MediaData> emptyFileList, final QueryController controller) {
+        loadingExecutor.execute(() -> {
+            for (MediaData item : emptyFileList) {
+                notExistSet.add(item.mediaId);
+            }
+            if (!controller.isCancelled) {
+                controller.postInvalid(emptyFileList);
+            }
         });
     }
 
@@ -344,7 +368,6 @@ final class MediaLoader {
                 item.width = cursor.getInt(IDX_WIDTH);
                 item.height = cursor.getInt(IDX_HEIGHT);
 
-                // MediaStore.Video.Media.ORIENTATION, require API level 29, Android Q
                 if (!cursor.isNull(IDX_ORIENTATION)) {
                     int orientation = cursor.getInt(IDX_ORIENTATION);
                     item.rotate = (orientation == 90 || orientation == 270) ? MediaData.ROTATE_YES : MediaData.ROTATE_NO;
@@ -400,11 +423,11 @@ final class MediaLoader {
      * For Android applies 'ScopedStorage' since Android 10,
      * it's recommended to add ' android:requestLegacyExternalStorage="true" ' in AndroidManifest.xml.
      */
-    private static void checkDeleted(final QueryController controller, long startTime) {
+    private static void checkExists(final QueryController controller, long startTime) {
         if (mediaCache.isEmpty()) {
             return;
         }
-        final Set<MediaData> deletedSet = new HashSet<>();
+        final List<MediaData> notExistsList = new ArrayList<>();
         if (Utils.hasReadPermission()) {
             Map<String, ArrayList<MediaData>> groupMap = new HashMap<>();
             for (MediaData item : mediaCache.values()) {
@@ -417,7 +440,7 @@ final class MediaLoader {
                 subList.add(item);
             }
             for (Map.Entry<String, ArrayList<MediaData>> entry : groupMap.entrySet()) {
-                checkDirectory(controller, entry.getKey(), entry.getValue(), deletedSet);
+                checkDirectory(controller, entry.getKey(), entry.getValue(), notExistsList);
                 if (controller.isCancelled) {
                     return;
                 }
@@ -425,21 +448,21 @@ final class MediaLoader {
         } else {
             ArrayList<MediaData> totalList = new ArrayList<>(mediaCache.size());
             totalList.addAll(mediaCache.values());
-            checkList(controller, totalList, deletedSet);
+            checkList(controller, totalList, notExistsList);
         }
 
         if (controller.isCancelled) {
             return;
         }
 
-        hadCheckedDeleted = true;
+        hadCheckedExists = true;
         long time = SystemClock.uptimeMillis() - startTime;
-        LogProxy.d(TAG, "Check deleted finish, used:" + time + "ms, deleted count:" + deletedSet.size());
-        controller.postDeleted(deletedSet);
+        LogProxy.d(TAG, "Check exists finish, used:" + time + "ms, deleted count:" + notExistsList.size());
+        controller.postInvalid(notExistsList);
     }
 
     private static void checkDirectory(QueryController controller, String parentPath, List<MediaData> subList,
-                                       Set<MediaData> deletedSet) {
+                                       List<MediaData> notExistsList) {
         if (subList.isEmpty()) {
             return;
         }
@@ -448,7 +471,7 @@ final class MediaLoader {
         File parentFile = new File(parentPath);
         String[] fileNameArray = parentFile.list();
         if (fileNameArray == null || fileNameArray.length == 0) {
-            checkList(controller, subList, deletedSet);
+            checkList(controller, subList, notExistsList);
         } else {
             Set<String> nameSet = new HashSet<>(Arrays.asList(fileNameArray));
             long currentTimeSeconds = System.currentTimeMillis() / 1000L;
@@ -462,14 +485,14 @@ final class MediaLoader {
                 // In case of "false negative" (The file exist, but 'list()' not return it),
                 // still calling the 'exists()' to check the item.
                 if (!item.exists()) {
-                    deletedSet.add(item);
+                    notExistsList.add(item);
                     markDeleted(item);
                 }
             }
         }
     }
 
-    private static void checkList(final QueryController controller, List<MediaData> list, Set<MediaData> deletedSet) {
+    private static void checkList(final QueryController controller, List<MediaData> list, List<MediaData> deletedSet) {
         long currentTimeSeconds = System.currentTimeMillis() / 1000L;
         for (MediaData item : list) {
             if (controller.isCancelled) {
