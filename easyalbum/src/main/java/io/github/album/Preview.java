@@ -144,6 +144,18 @@ final class Preview {
             String text = "" + (currentIndex + 1) + '/' + mediaList.size();
             titleTv.setText(text);
         }
+
+        void scrollSelectRv() {
+            if (currentIndex >= mediaList.size()) {
+                return;
+            }
+            MediaData mediaData = mediaList.get(currentIndex);
+            List<MediaData> selectedList = Session.result.selectedList;
+            int position = selectedList.indexOf(mediaData);
+            if (position > -1) {
+                selectedRv.scrollToPosition(position);
+            }
+        }
     }
 
     void show(List<MediaData> mediaList, MediaData item, boolean selectedPreview) {
@@ -245,6 +257,7 @@ final class Preview {
         } else {
             selectedRv.setVisibility(View.VISIBLE);
         }
+        holder.scrollSelectRv();
     }
 
     private void toggleTitle() {
@@ -343,6 +356,7 @@ final class Preview {
                 holder.updateSelectIv();
                 holder.updateTitleTv();
                 selectedAdapter.refreshUI();
+                holder.scrollSelectRv();
             }
 
             @Override
