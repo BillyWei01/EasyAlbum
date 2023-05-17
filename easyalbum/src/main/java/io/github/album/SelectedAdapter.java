@@ -24,15 +24,35 @@ class SelectedAdapter extends RecyclerView.Adapter<SelectedViewHolder> {
         data.addAll(list);
     }
 
-    void updateMedia(MediaData mediaData) {
-        if(!data.contains(mediaData)){
-            data.add(mediaData);
+    void updateMedia(MediaData mediaData, boolean selectedPreview) {
+        if (selectedPreview) {
+            if (!data.contains(mediaData)) {
+                data.add(mediaData);
+            }
+        } else {
+            List<MediaData> selectedList = Session.result.selectedList;
+            if (selectedList.contains(mediaData)) {
+                if (!data.contains(mediaData)) {
+                    data.add(mediaData);
+                }
+            } else {
+                data.remove(mediaData);
+            }
         }
     }
 
     @android.annotation.SuppressLint("NotifyDataSetChanged")
     public void refreshUI() {
         notifyDataSetChanged();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        if (position < data.size()) {
+            return data.get(position).mediaId;
+        } else {
+            return super.getItemId(position);
+        }
     }
 
     @NonNull

@@ -129,7 +129,7 @@ public final class AlbumActivity extends AppCompatActivity {
         ClickHelper.listen(previewTv, () -> {
             List<MediaData> selectedList = Session.result.selectedList;
             if (!selectedList.isEmpty()) {
-                getPreview().show(new ArrayList<>(selectedList), selectedList.get(0));
+                getPreview().show(new ArrayList<>(selectedList), selectedList.get(0), true);
             }
         });
 
@@ -149,7 +149,7 @@ public final class AlbumActivity extends AppCompatActivity {
 
             @Override
             public void onItemClick(MediaData item) {
-                getPreview().show(currentFolder.mediaList, item);
+                getPreview().show(currentFolder.mediaList, item, false);
             }
 
             @Override

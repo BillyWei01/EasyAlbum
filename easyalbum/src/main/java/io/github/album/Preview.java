@@ -1,20 +1,20 @@
 package io.github.album;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.content.Context;
+import android.graphics.Rect;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.content.Context;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager.OnPageChangeListener;
-import androidx.recyclerview.widget.*;
-
-import android.graphics.Rect;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 
 import java.util.List;
 
@@ -44,6 +44,12 @@ final class Preview {
     private boolean isTitleShowing = true;
     private AnimatorSet hideTitleSet;
     private AnimatorSet showTitleSet;
+
+    /**
+     * 是否是选中预览模式，该模式下底部选中item变为未选中态会有白色遮罩。
+     * 非预览模式，则是会把未选中item移除
+     */
+    private boolean selectedPreview = false;
 
     interface PreviewEventListener {
         void onClose();
@@ -140,8 +146,9 @@ final class Preview {
         }
     }
 
-    void show(List<MediaData> mediaList, MediaData item) {
+    void show(List<MediaData> mediaList, MediaData item, boolean selectedPreview) {
         if (rootView == null) {
+            this.selectedPreview = selectedPreview;
             initView(mediaList, item);
         }
     }
@@ -191,12 +198,13 @@ final class Preview {
         ClickHelper.listen(holder.selectLayout, () -> {
             if (currentIndex < mediaList.size()) {
                 MediaData mediaData = mediaList.get(currentIndex);
-                boolean hasSelected = !Session.result.selectedList.isEmpty();
                 if (Session.selectItem(mediaData) && Session.request.limit > 1) {
-                    if (!hasSelected) {
+                    if (Session.result.selectedList.isEmpty()) {
+                        holder.selectedRv.setVisibility(View.GONE);
+                    } else {
                         holder.selectedRv.setVisibility(View.VISIBLE);
                     }
-                    selectedAdapter.updateMedia(mediaData);
+                    selectedAdapter.updateMedia(mediaData, selectedPreview);
                 }
             }
             holder.updateOriginalView();
@@ -215,6 +223,7 @@ final class Preview {
 
     private void initSelectedRv() {
         selectedAdapter = new SelectedAdapter(this, Session.result.selectedList);
+        selectedAdapter.setHasStableIds(true);
         RecyclerView selectedRv = holder.selectedRv;
         selectedRv.setLayoutManager(new LinearLayoutManager(getContext(), RecyclerView.HORIZONTAL, false));
         selectedRv.addItemDecoration(new RecyclerView.ItemDecoration() {
