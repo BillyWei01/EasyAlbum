@@ -57,6 +57,7 @@ abstract class PreviewItem {
             } else {
                 scaleImageView.setExecutor(AlbumConfig.getExecutor());
                 photoView.setVisibility(View.GONE);
+                scaleImageView.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
                 scaleImageView.setVisibility(View.VISIBLE);
                 scaleImageView.setImage(ImageSource.uri(media.getProperUri()));
             }
