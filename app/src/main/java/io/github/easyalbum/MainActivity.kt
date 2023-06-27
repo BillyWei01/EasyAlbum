@@ -18,6 +18,7 @@ import io.github.album.interfaces.MediaFilter
 import io.github.album.ui.GridItemDecoration
 import io.github.easyalbum.application.GlobalConfig
 import io.github.easyalbum.util.ActivityResultObserver
+import io.github.easyalbum.util.LogUtil
 import io.github.easyalbum.util.PermissionUtil
 import io.github.easyalbum.util.ToastUtil
 import io.github.easyalbum.util.Utils
@@ -170,6 +171,9 @@ class MainActivity : AppCompatActivity() {
             .setSelectedList(mediaAdapter?.getData())
             .setAllString(option.text)
             .enableOriginal()
+            .setAlbumListener {
+                LogUtil.d("MyTag", "Album close, hadConfirm:$it")
+            }
             //.setFolderComparator(priorityFolderComparator)
             .start { result ->
                 mediaAdapter?.setData(result.selectedList)

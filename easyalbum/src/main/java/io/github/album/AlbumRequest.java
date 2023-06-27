@@ -25,6 +25,7 @@ public final class AlbumRequest {
 
     Comparator<Folder> folderComparator = AlbumConfig.defaultFolderComparator;
 
+    AlbumListener albumListener;
     OverLimitCallback overLimitCallback;
     private String allString;
     private String doneString;
@@ -118,11 +119,15 @@ public final class AlbumRequest {
         return this;
     }
 
+    public AlbumRequest setAlbumListener(AlbumListener listener) {
+        this.albumListener = listener;
+        return this;
+    }
+
     /**
      * @param asBitmap <br>
-     * True: Show pictures as static image;  <br>
-     * False: Show picture as animated drawable if the media file is animated gif, otherwise show as static image.
-     *
+     *                 True: Show pictures as static image;  <br>
+     *                 False: Show picture as animated drawable if the media file is animated gif, otherwise show as static image.
      * @return AlbumRequest
      */
     public AlbumRequest setThumbnailAsBitmap(boolean asBitmap) {
@@ -160,5 +165,6 @@ public final class AlbumRequest {
         filter = null;
         overLimitCallback = null;
         folderComparator = null;
+        albumListener = null;
     }
 }

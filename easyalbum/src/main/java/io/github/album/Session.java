@@ -7,6 +7,7 @@ import io.github.album.interfaces.ResultCallback;
 final class Session {
     static AlbumRequest request;
     static AlbumResult result;
+    static boolean hadConfirm;
     private static ResultCallback resultCallback;
 
     static void init(AlbumRequest req, ResultCallback callback, List<MediaData> selectedList) {
@@ -16,6 +17,7 @@ final class Session {
         if (selectedList != null) {
             result.selectedList.addAll(selectedList);
         }
+        hadConfirm = false;
     }
 
     static boolean ready() {
@@ -24,6 +26,9 @@ final class Session {
 
     static void clear() {
         if (request != null) {
+            if (request.albumListener != null) {
+                request.albumListener.onAlbumClose(hadConfirm);
+            }
             // AlbumRequest may hold reference by MediaLoader,
             // so clear reference of AlbumRequest's member could help gc.
             request.clear();
@@ -34,6 +39,7 @@ final class Session {
     }
 
     static void confirm() {
+        hadConfirm = true;
         if (resultCallback != null) {
             resultCallback.onResult(result);
         }

@@ -22,7 +22,7 @@ EasyAlbum is an easy to use media image and video selector for Android.
 ### 2.1 Download
 
 ```gradle
-implementation 'io.github.billywei01:easyalbum:1.1.2'
+implementation 'io.github.billywei01:easyalbum:1.1.3'
 ```
 
 ### 2.2 Global Config

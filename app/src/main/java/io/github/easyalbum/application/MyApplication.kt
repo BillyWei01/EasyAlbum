@@ -5,8 +5,9 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import io.github.album.EasyAlbum
 import io.github.easyalbum.album.DoodleImageLoader
 import io.github.easyalbum.album.GlideImageLoader
-import io.github.easyalbum.util.IOExecutor
 import io.github.easyalbum.util.Logger
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.asExecutor
 
 class MyApplication : Application() {
     override fun onCreate() {
@@ -19,9 +20,9 @@ class MyApplication : Application() {
         GlobalConfig.setAppContext(context)
         EasyAlbum.config()
             .setLogger(Logger)
-            .setExecutor(IOExecutor)
-            .setImageLoader(GlideImageLoader)
-            // .setImageLoader(DoodleImageLoader)
+            .setExecutor(Dispatchers.IO.asExecutor())
+            //.setImageLoader(GlideImageLoader)
+            .setImageLoader(DoodleImageLoader)
             .setDefaultFolderComparator { o1, o2 -> o1.name.compareTo(o2.name)}
             .setItemAnimator(DefaultItemAnimator())
     }

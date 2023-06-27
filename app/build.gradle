@@ -45,7 +45,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.15.0'
     kapt 'com.github.bumptech.glide:compiler:4.15.0'
 
-    implementation 'io.github.billywei01:doodle:2.0.3'
+    implementation 'io.github.billywei01:doodle:2.1.3'
 
     implementation project(':easyalbum')
 }
