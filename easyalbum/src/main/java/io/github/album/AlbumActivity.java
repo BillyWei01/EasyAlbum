@@ -45,6 +45,7 @@ public final class AlbumActivity extends AppCompatActivity {
     private TextView folderNameTv;
     private ImageView dropdownIv;
     private FrameLayout folderContainer;
+    private RecyclerView mediaRv;
     private RecyclerView folderRv;
     private FolderAdapter folderAdapter;
 
@@ -138,7 +139,7 @@ public final class AlbumActivity extends AppCompatActivity {
             updateOriginalView();
         });
 
-        RecyclerView mediaRv = findViewById(R.id.album_media_rv);
+        mediaRv = findViewById(R.id.album_media_rv);
         mediaRv.setLayoutManager(new GridLayoutManager(this, 4));
         mediaRv.addItemDecoration(new GridItemDecoration(4, Utils.dp2px(1.5f)));
         itemAdapter = new MediaItemAdapter(this, new MediaItemAdapter.EventListener() {
@@ -447,6 +448,10 @@ public final class AlbumActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         clearSession();
+        if (mediaRv != null) {
+            // 调用setItemAnimator，触发 mItemAnimator.setListener(null)，以避免内存泄漏
+            mediaRv.setItemAnimator(null);
+        }
         super.onDestroy();
     }
 
